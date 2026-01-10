@@ -6,12 +6,12 @@ import { LoginForm } from "@/components/login-form";
 import { LoginPage } from "./pages/LoginPage";
 import { SignupForm } from "./components/ui/signup-form";
 import { SignupPage } from "./pages/SignupPage";
+import { AppRoutes } from "./routes/AppRoutes";
 
 function App() {
   return (
     <>
-      {/* <LoginPage /> */}
-      <SignupPage />
+      <AppRoutes />
     </>
   );
 }

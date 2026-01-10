@@ -8,11 +8,38 @@ import {
   FieldSeparator,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { useAuth } from "../context/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export function LoginForm({ className, ...props }) {
+  const { login, loading, error } = useAuth();
+  const navigate = useNavigate();
+
+  const [form, setForm] = useState({
+    username: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const result = await login(form);
+    if (result) {
+      navigate("/dashboard");
+    }
+  };
   return (
     <div className="py-6 mx-6">
-      <form className={cn("flex flex-col gap-6", className)} {...props}>
+      <form
+        onSubmit={handleSubmit}
+        className={cn("flex flex-col gap-6", className)}
+        {...props}
+      >
         <FieldGroup>
           <div className="flex flex-col items-center gap-1 text-center">
             <h1 className="text-2xl font-bold">Login to your account</h1>
@@ -21,11 +48,14 @@ export function LoginForm({ className, ...props }) {
             </p>
           </div>
           <Field>
-            <FieldLabel htmlFor="email">Email</FieldLabel>
+            <FieldLabel htmlFor="username">User Name</FieldLabel>
             <Input
-              id="email"
-              type="email"
-              placeholder="m@example.com"
+              name="username"
+              value={form.username}
+              onChange={handleChange}
+              id="username"
+              type="text"
+              placeholder="AntMHBN"
               required
             />
           </Field>
@@ -39,10 +69,19 @@ export function LoginForm({ className, ...props }) {
                 Forgot your password?
               </a>
             </div>
-            <Input id="password" type="password" required />
+            <Input
+              name="password"
+              value={form.password}
+              onChange={handleChange}
+              id="password"
+              type="password"
+              required
+            />
           </Field>
           <Field>
-            <Button type="submit">Login</Button>
+            <Button type="submit" disabled={loading}>
+              {loading ? "Logging in..." : "Login"}
+            </Button>
           </Field>
           <FieldSeparator>Or continue with</FieldSeparator>
           <Field>
@@ -57,9 +96,9 @@ export function LoginForm({ className, ...props }) {
             </Button>
             <FieldDescription className="text-center">
               Don&apos;t have an account?{" "}
-              <a href="#" className="underline underline-offset-4">
+              <Link to="/" className="underline underline-offset-4">
                 Sign up
-              </a>
+              </Link>
             </FieldDescription>
           </Field>
         </FieldGroup>
