@@ -10,7 +10,7 @@ const useAxiosProducts = (url) => {
   const fetchAllProducts = async () => {
     try {
       const response = await axiosInstance.get(url);
-      setData(response.data);
+      setData(response.data.products);
       console.log(data);
     } catch (error) {
       setError("Failed to fetch Products");
@@ -23,6 +23,7 @@ const useAxiosProducts = (url) => {
   return {
     data,
     loading,
+    error,
     fetchAllProducts,
   };
 };

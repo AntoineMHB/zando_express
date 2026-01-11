@@ -2,17 +2,15 @@ import React from "react";
 
 export const ProductCard = ({
   title,
-
   description,
   price,
-  rate,
-  image,
-
+  rating,
+  images,
   children,
 }) => {
   return (
     <div className="bg-slate-100/50 flex flex-col gap-3 border border-slate-50 rounded-md shadow-md px-5 py-3">
-      <img src={image} alt="" />
+      <img src={images} alt="" />
 
       {/* div product info */}
       <div className="flex flex-col gap-3">
@@ -29,7 +27,7 @@ export const ProductCard = ({
           <p className="text-[13px] text-center text-slate-500">
             {description}
           </p>
-          <p className="text-yellow-600 text-lg">Rate: {rate}</p>
+          <p className="text-yellow-600 text-lg">Rate: {rating}</p>
         </span>
 
         <span></span>

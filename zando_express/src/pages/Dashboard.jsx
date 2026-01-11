@@ -8,12 +8,13 @@ import {
 } from "../components/ui/navigation-menu";
 import { SearchField } from "../components/ui/searchField";
 import { TopNavBar } from "../components/TopNavBar";
+import { Products } from "../components/Products";
 
 export const Dashboard = () => {
   return (
     <div>
       <TopNavBar />
-      <div>Welcome to the Dashboard</div>
+      <Products />
     </div>
   );
 };
