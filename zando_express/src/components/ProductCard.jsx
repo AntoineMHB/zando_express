@@ -9,7 +9,7 @@ export const ProductCard = ({
   children,
 }) => {
   return (
-    <div className="bg-slate-100/50 flex flex-col gap-3 border border-slate-50 rounded-md shadow-md px-5 py-3">
+    <div className="bg-slate-100/50 min-w-min flex flex-col gap-3 border border-slate-50 rounded-md shadow-md px-5 py-3">
       <img src={images} alt="" />
 
       {/* div product info */}
@@ -23,7 +23,8 @@ export const ProductCard = ({
         </span>
 
         {/* Description text */}
-        <span className="flex flex-col gap-2">
+
+        <span className="flex flex-col gap-2 ">
           <p className="text-[13px] text-center text-slate-500">
             {description}
           </p>

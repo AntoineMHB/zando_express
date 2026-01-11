@@ -4,7 +4,7 @@ import { ProductCard } from "./ProductCard";
 import { Button } from "./ui/button";
 
 const ITEMS_PER_ROW = 4;
-const INITIAL_ROWS = 2;
+const INITIAL_ROWS = 1;
 const INITIAL_ITEMS = ITEMS_PER_ROW * INITIAL_ROWS;
 
 export const Products = () => {

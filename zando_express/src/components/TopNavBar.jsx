@@ -8,6 +8,7 @@ import {
   NavigationMenuTrigger,
 } from "./ui/navigation-menu";
 import { SearchField } from "./ui/searchField";
+import { Link } from "react-router-dom";
 
 export const TopNavBar = () => {
   return (
@@ -17,9 +18,13 @@ export const TopNavBar = () => {
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <NavigationMenuTrigger>Item One</NavigationMenuTrigger>
+              <NavigationMenuTrigger>Categories</NavigationMenuTrigger>
               <NavigationMenuContent>
-                <NavigationMenuLink>Link</NavigationMenuLink>
+                <Link to={"/categories"}>
+                  <NavigationMenuLink>
+                    All products categories
+                  </NavigationMenuLink>
+                </Link>
               </NavigationMenuContent>
             </NavigationMenuItem>
 

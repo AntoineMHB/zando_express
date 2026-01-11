@@ -19,12 +19,28 @@ const useAxiosProducts = (url) => {
     }
   };
 
+  // FEtching all products categories
+
+  const fetchAllProductsCategories = async () => {
+    try {
+      const response = await axiosInstance.get(url);
+      setData(
+        Array.isArray(response.data) ? response.data : response.data.categories
+      );
+    } catch (error) {
+      setError("Failed to fetch Products categories");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // return the state and function
   return {
     data,
     loading,
     error,
     fetchAllProducts,
+    fetchAllProductsCategories,
   };
 };
 

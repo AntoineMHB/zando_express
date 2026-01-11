@@ -11,9 +11,13 @@ export const ProductsProvider = ({ children }) => {
     fetchAllProducts,
   } = useAxiosProducts("/products");
 
+  const { data: productsCategories, fetchAllProductsCategories } =
+    useAxiosProducts("/products/categories");
+
   // We fetch once when the app loads
   useEffect(() => {
     fetchAllProducts();
+    fetchAllProductsCategories();
   }, []);
 
   return (
@@ -22,7 +26,9 @@ export const ProductsProvider = ({ children }) => {
         products,
         loading,
         error,
+        productsCategories,
         fetchAllProducts,
+        fetchAllProductsCategories,
       }}
     >
       {children}
@@ -33,7 +39,7 @@ export const ProductsProvider = ({ children }) => {
 export const useProducts = () => {
   const context = useContext(ProductsContext);
   if (!context) {
-    throw new Error("useProducts mus be used within ProductsProvider");
+    throw new Error("useProducts must be used within ProductsProvider");
   }
   return context;
 };
