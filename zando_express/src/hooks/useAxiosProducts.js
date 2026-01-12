@@ -34,6 +34,23 @@ const useAxiosProducts = (url) => {
     }
   };
 
+  // Fetching products by category
+
+  const fetchAllProductsByCategory = async () => {
+    try {
+      const response = await axiosInstance.get(url);
+      setData(
+        Array.isArray(response.data)
+          ? response.data
+          : response.data.categoryProducts
+      );
+    } catch (error) {
+      setError("Failed to fetch Products for this category");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // return the state and function
   return {
     data,
@@ -41,6 +58,7 @@ const useAxiosProducts = (url) => {
     error,
     fetchAllProducts,
     fetchAllProductsCategories,
+    fetchAllProductsByCategory,
   };
 };
 

@@ -25,6 +25,7 @@ export const Products = () => {
         {displayedProducts.map((product) => (
           <ProductCard
             key={product.id}
+            id={product.id}
             title={product.title}
             images={product.images}
             description={product.description}
@@ -36,7 +37,7 @@ export const Products = () => {
       {hasMore && !showAll && (
         <div className="flex items-center justify-center my-5">
           <Button
-            className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200 shadow-amber-600"
+            className="bg-black hover:bg-gray-950 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200 shadow-amber-600"
             onClick={() => setShowAll(true)}
           >
             View More
@@ -47,7 +48,7 @@ export const Products = () => {
       {showAll && (
         <div className="flex items-center justify-center my-5">
           <Button
-            className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200 shadow-amber-600"
+            className="bg-black hover:bg-gray-950 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200 shadow-amber-600"
             onClick={() => setShowAll(false)}
           >
             View Less

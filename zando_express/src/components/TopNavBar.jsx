@@ -9,6 +9,7 @@ import {
 } from "./ui/navigation-menu";
 import { SearchField } from "./ui/searchField";
 import { Link } from "react-router-dom";
+import { Button } from "./ui/button";
 
 export const TopNavBar = () => {
   return (
@@ -36,7 +37,9 @@ export const TopNavBar = () => {
 
         <Heart size={20} />
 
-        <ShoppingCart size={20} />
+        <Link to={"/cart"}>
+          <ShoppingCart size={20} />
+        </Link>
       </div>
     </div>
   );

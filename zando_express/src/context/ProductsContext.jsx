@@ -18,6 +18,7 @@ export const ProductsProvider = ({ children }) => {
   useEffect(() => {
     fetchAllProducts();
     fetchAllProductsCategories();
+    fetchAllProductsCategories();
   }, []);
 
   return (
