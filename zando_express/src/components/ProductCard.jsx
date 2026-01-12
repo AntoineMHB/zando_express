@@ -2,6 +2,8 @@ import React from "react";
 import { Button } from "./ui/button";
 import { useCart } from "../context/CartContext";
 import { addToCart } from "../utils/cartStorage";
+import { Heart } from "lucide-react";
+import { addToWishlist } from "../utils/wishlistStorage";
 
 export const ProductCard = ({
   id,
@@ -16,6 +18,15 @@ export const ProductCard = ({
 
   const handleAddToCart = () => {
     addToCart({
+      id,
+      title,
+      price,
+      image: productImage,
+    });
+  };
+
+  const handleAddToWishlist = () => {
+    addToWishlist({
       id,
       title,
       price,
@@ -43,7 +54,15 @@ export const ProductCard = ({
           <p className="text-[13px]  text-slate-500 text-justify">
             {description}
           </p>
-          <p className="text-yellow-600 text-lg">Rate: {rating}</p>
+          <div className="flex space-x-10">
+            <p className="text-yellow-600 text-lg">Rate: {rating}</p>
+            <Button
+              onClick={handleAddToWishlist}
+              className="bg-black text-white font-bold mt-auto"
+            >
+              <Heart size={20} />
+            </Button>
+          </div>
         </span>
 
         <Button

@@ -2,25 +2,29 @@ import { useEffect, useState } from "react";
 import { getCart, removeFromCart } from "../utils/cartStorage";
 import Container from "../components/ui/container";
 import { TopNavBar } from "../components/TopNavBar";
+import { getWishlist, removeFromWishlist } from "../utils/wishlistStorage";
 
-const CartPage = () => {
-  const [cart, setCart] = useState([]);
+const WishlistPage = () => {
+  const [wishlist, setWishlist] = useState([]);
 
   useEffect(() => {
-    setCart(getCart());
+    setWishlist(getWishlist());
   }, []);
 
   const handleRemove = (id) => {
-    removeFromCart(id);
-    setCart(getCart());
+    removeFromWishlist(id);
+    setWishlist(getWishlist());
   };
 
-  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const total = wishlist.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
 
   return (
     <div className="w-screen">
       <TopNavBar />
-      <h1 className="text-2xl font-bold mb-4">Your Cart</h1>
+      <h1 className="text-2xl font-bold mb-4">Your Wishlist</h1>
 
       <div className="flex items-center justify-center">
         <Container className="h-[72px] w-[1170px]">
@@ -33,7 +37,7 @@ const CartPage = () => {
         </Container>
       </div>
 
-      {cart.map((item) => (
+      {wishlist.map((item) => (
         <div className="flex items-center justify-center mt-5">
           <Container className="h-[72px] w-[1170px]">
             <div className="flex gap-20 px-2 py-2">
@@ -65,7 +69,7 @@ const CartPage = () => {
       ))}
 
       {/* checkout */}
-      {cart.map((item) => {
+      {wishlist.map((item) => {
         <Container>
           <div className="px-3 grid grid-cols-1">
             <p className="font-bold py-5">Cart Total</p>
@@ -82,4 +86,4 @@ const CartPage = () => {
   );
 };
 
-export default CartPage;
+export default WishlistPage;

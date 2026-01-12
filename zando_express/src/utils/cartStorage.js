@@ -15,9 +15,15 @@ export const addToCart = (product) => {
   }
 
   localStorage.setItem("cart", JSON.stringify(cart));
+
+  // notify navbar/cart icon
+  window.dispatchEvent(new Event("cartUpdated"));
 };
 
 export const removeFromCart = (id) => {
   const cart = getCart().filter((item) => item.id !== id);
   localStorage.setItem("cart", JSON.stringify(cart));
+
+  // notify navbar/cart icon
+  window.dispatchEvent(new Event("cartUpdated"));
 };
