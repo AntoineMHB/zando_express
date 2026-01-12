@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axiosInstance from "../app/api/axios";
+import axiosInstance from "../api/axios";
 
 const useAxiosUsers = (url) => {
   const [data, setData] = useState([]);

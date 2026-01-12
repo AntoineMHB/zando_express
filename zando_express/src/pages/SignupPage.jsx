@@ -6,7 +6,7 @@ export const SignupPage = () => {
       {/* Image side */}
       <div className="h-full w-full">
         <img
-          src="/src/assets/images/zando_logo.png"
+          src="zando_logo.png"
           alt="Zando logo"
           className="h-full w-full object-cover"
         />
