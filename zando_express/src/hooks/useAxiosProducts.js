@@ -1,64 +1,81 @@
 import { useState } from "react";
 import axiosInstance from "../api/axios";
 
-const useAxiosProducts = (url) => {
-  const [data, setData] = useState([]);
+const useAxiosProducts = () => {
+  const [data, setData] = useState([]); // current products (or search results)
+  const [categories, setCategories] = useState([]); // product categories
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Fetching data
+  // Fetch all products
   const fetchAllProducts = async () => {
+    setLoading(true);
+    setError(null);
     try {
-      const response = await axiosInstance.get(url);
-      setData(response.data.products);
-      console.log(data);
-    } catch (error) {
-      setError("Failed to fetch Products");
+      const response = await axiosInstance.get("/products");
+      setData(response.data.products || []);
+    } catch (err) {
+      setError("Failed to fetch products");
     } finally {
       setLoading(false);
     }
   };
 
-  // FEtching all products categories
-
+  // Fetch all product categories
   const fetchAllProductsCategories = async () => {
+    setLoading(true);
+    setError(null);
     try {
-      const response = await axiosInstance.get(url);
-      setData(
-        Array.isArray(response.data) ? response.data : response.data.categories
-      );
-    } catch (error) {
-      setError("Failed to fetch Products categories");
+      const response = await axiosInstance.get("/products/categories");
+      setCategories(response.data || []);
+    } catch (err) {
+      setError("Failed to fetch product categories");
     } finally {
       setLoading(false);
     }
   };
 
-  // Fetching products by category
-
-  const fetchAllProductsByCategory = async () => {
+  // Fetch products by category
+  const fetchProductsByCategory = async (category) => {
+    if (!category) return;
+    setLoading(true);
+    setError(null);
     try {
-      const response = await axiosInstance.get(url);
-      setData(
-        Array.isArray(response.data)
-          ? response.data
-          : response.data.categoryProducts
+      const response = await axiosInstance.get(
+        `/products/category/${category}`
       );
-    } catch (error) {
-      setError("Failed to fetch Products for this category");
+      setData(response.data.products || []);
+    } catch (err) {
+      setError("Failed to fetch products for this category");
     } finally {
       setLoading(false);
     }
   };
 
-  // return the state and function
+  // Search products
+  const searchProducts = async (query) => {
+    if (!query || !query.trim()) return;
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axiosInstance.get(`/products/search?q=${query}`);
+      setData(response.data.products || []);
+    } catch (err) {
+      setError("Failed to search products");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     data,
+    categories,
     loading,
     error,
     fetchAllProducts,
     fetchAllProductsCategories,
-    fetchAllProductsByCategory,
+    fetchProductsByCategory,
+    searchProducts,
   };
 };
 

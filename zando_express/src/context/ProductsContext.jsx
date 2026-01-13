@@ -6,18 +6,17 @@ const ProductsContext = createContext(null);
 export const ProductsProvider = ({ children }) => {
   const {
     data: products,
+    categories: productsCategories, // <-- categories from the hook
     loading,
     error,
     fetchAllProducts,
-  } = useAxiosProducts("/products");
+    fetchAllProductsCategories,
+    searchProducts,
+  } = useAxiosProducts(); // no URL needed now
 
-  const { data: productsCategories, fetchAllProductsCategories } =
-    useAxiosProducts("/products/categories");
-
-  // We fetch once when the app loads
+  // Fetch once on app load
   useEffect(() => {
     fetchAllProducts();
-    fetchAllProductsCategories();
     fetchAllProductsCategories();
   }, []);
 
@@ -25,11 +24,12 @@ export const ProductsProvider = ({ children }) => {
     <ProductsContext.Provider
       value={{
         products,
+        productsCategories, // <-- this fixes the "not defined" error
         loading,
         error,
-        productsCategories,
         fetchAllProducts,
         fetchAllProductsCategories,
+        searchProducts,
       }}
     >
       {children}
@@ -39,8 +39,7 @@ export const ProductsProvider = ({ children }) => {
 
 export const useProducts = () => {
   const context = useContext(ProductsContext);
-  if (!context) {
+  if (!context)
     throw new Error("useProducts must be used within ProductsProvider");
-  }
   return context;
 };

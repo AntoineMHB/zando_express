@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { useCart } from "../context/CartContext";
 import { addToCart } from "../utils/cartStorage";
@@ -25,6 +25,8 @@ export const ProductCard = ({
     });
   };
 
+  const [liked, setLiked] = useState(false);
+
   const handleAddToWishlist = () => {
     addToWishlist({
       id,
@@ -32,6 +34,8 @@ export const ProductCard = ({
       price,
       image: productImage,
     });
+
+    setLiked((prev) => !prev);
   };
 
   return (
@@ -56,12 +60,14 @@ export const ProductCard = ({
           </p>
           <div className="flex space-x-10">
             <p className="text-yellow-600 text-lg">Rate: {rating}</p>
-            <Button
+
+            <Heart
+              size={20}
               onClick={handleAddToWishlist}
-              className="bg-black text-white font-bold mt-auto"
-            >
-              <Heart size={20} />
-            </Button>
+              className={`cursor-pointer transition-colors duration-200 ${
+                liked ? "text-black fill-black" : "text-gray-700"
+              }`}
+            />
           </div>
         </span>
 

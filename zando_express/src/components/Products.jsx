@@ -8,12 +8,15 @@ const INITIAL_ROWS = 1;
 const INITIAL_ITEMS = ITEMS_PER_ROW * INITIAL_ROWS;
 
 export const Products = () => {
-  const { products, loading, error } = useProducts();
+  const { products, loading, error } = useProducts(); // products may be search results
   const [showAll, setShowAll] = useState(false);
 
-  const displayedProducts = showAll
-    ? products
-    : products.slice(0, INITIAL_ITEMS);
+  // if search is active, we show all by default
+  const displayedProducts =
+    showAll || products.length <= INITIAL_ITEMS
+      ? products
+      : products.slice(0, INITIAL_ITEMS);
+
   const hasMore = products.length > INITIAL_ITEMS;
 
   if (loading) return <p>Loading...</p>;
@@ -34,6 +37,8 @@ export const Products = () => {
           />
         ))}
       </div>
+
+      {/* Show View More / View Less only if there are more items */}
       {hasMore && !showAll && (
         <div className="flex items-center justify-center my-5">
           <Button
@@ -45,7 +50,7 @@ export const Products = () => {
         </div>
       )}
 
-      {showAll && (
+      {showAll && hasMore && (
         <div className="flex items-center justify-center my-5">
           <Button
             className="bg-black hover:bg-gray-950 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200 shadow-amber-600"
