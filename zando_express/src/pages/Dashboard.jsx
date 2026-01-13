@@ -1,32 +1,41 @@
-import { NavigationMenu } from "@/components/ui/navigation-menu";
-import {
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "../components/ui/navigation-menu";
-import { SearchField } from "../components/ui/searchField";
-import { TopNavBar } from "../components/TopNavBar";
+import { useState } from "react";
 import { Products } from "../components/Products";
-import { Sidebar } from "../components/ui/sidebar";
-import { ProductsCategories } from "./ProductsCategories";
+import { Button } from "../components/ui/button";
 import { SortDropdown } from "../components/SortDropdown";
+import { TopNavBar } from "../components/TopNavBar";
+
+import { ProductsCategories } from "../pages/ProductsCategories";
 
 export const Dashboard = () => {
+  const [showAllProducts, setShowAllProducts] = useState(false);
+
   return (
     <div>
       <TopNavBar />
       <p className="flex items-center justify-center text-2xl font-bold">
         All Products
       </p>
+
       <div className="py-5 flex items-center justify-center text-lg font-semibold gap-4">
         Sort products by: <SortDropdown />
       </div>
 
+      {/* Global Show All Button */}
+      <div className="flex items-center justify-center my-4">
+        <Button
+          className="bg-black text-white font-semibold py-2 px-6 rounded-lg"
+          onClick={() => setShowAllProducts(true)}
+        >
+          Show All Products
+        </Button>
+      </div>
+
       <div className="flex gap-2">
         <ProductsCategories />
-        <Products />
+        <Products
+          showAllProp={showAllProducts}
+          onShowAllChange={setShowAllProducts}
+        />
       </div>
     </div>
   );

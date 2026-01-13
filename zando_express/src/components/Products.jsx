@@ -1,19 +1,22 @@
 import { useState } from "react";
 import { useProducts } from "../context/ProductsContext";
-import { ProductCard } from "./ProductCard";
+import { ProductCard } from "../components/ProductCard";
 import { Button } from "./ui/button";
 
+// Add these constants
 const ITEMS_PER_ROW = 4;
 const INITIAL_ROWS = 1;
 const INITIAL_ITEMS = ITEMS_PER_ROW * INITIAL_ROWS;
 
-export const Products = () => {
-  const { products, loading, error } = useProducts(); // products may be search results
+export const Products = ({ showAllProp, onShowAllChange }) => {
+  const { products, loading, error } = useProducts();
   const [showAll, setShowAll] = useState(false);
 
-  // if search is active, we show all by default
+  // Use the prop if passed
+  const isShowingAll = showAllProp !== undefined ? showAllProp : showAll;
+
   const displayedProducts =
-    showAll || products.length <= INITIAL_ITEMS
+    isShowingAll || products.length <= INITIAL_ITEMS
       ? products
       : products.slice(0, INITIAL_ITEMS);
 
@@ -38,23 +41,27 @@ export const Products = () => {
         ))}
       </div>
 
-      {/* Show View More / View Less only if there are more items */}
-      {hasMore && !showAll && (
+      {/* View More / View Less button */}
+      {hasMore && !isShowingAll && (
         <div className="flex items-center justify-center my-5">
           <Button
             className="bg-black hover:bg-gray-950 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200 shadow-amber-600"
-            onClick={() => setShowAll(true)}
+            onClick={() =>
+              onShowAllChange ? onShowAllChange(true) : setShowAll(true)
+            }
           >
             View More
           </Button>
         </div>
       )}
 
-      {showAll && hasMore && (
+      {isShowingAll && hasMore && (
         <div className="flex items-center justify-center my-5">
           <Button
             className="bg-black hover:bg-gray-950 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200 shadow-amber-600"
-            onClick={() => setShowAll(false)}
+            onClick={() =>
+              onShowAllChange ? onShowAllChange(false) : setShowAll(false)
+            }
           >
             View Less
           </Button>
