@@ -72,7 +72,7 @@ export const ProductCard = ({
 
         <span className="flex flex-col gap-2 ">
           <p className="text-[13px]  text-slate-500 text-justify">
-            {description}
+            {/* {description} */}
           </p>
           <div className="flex space-x-10">
             <p className="text-yellow-600 text-lg">Rate: {rating}</p>

@@ -5,6 +5,7 @@ import { Dashboard } from "../pages/Dashboard";
 import { NavigationMenu } from "../components/ui/navigation-menu";
 import Cart from "../pages/CartPage";
 import WishlistPage from "../pages/WishlistPage";
+import { ProductDetails } from "../pages/ProductsDetails";
 
 export const AppRoutes = () => {
   return (
@@ -14,6 +15,7 @@ export const AppRoutes = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/wishlist" element={<WishlistPage />} />
+      <Route path="/product/:id" element={<ProductDetails />} />
     </Routes>
   );
 };
