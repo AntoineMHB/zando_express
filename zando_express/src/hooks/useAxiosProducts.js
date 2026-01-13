@@ -67,6 +67,23 @@ const useAxiosProducts = () => {
     }
   };
 
+  // sorting products
+  const sortProducts = async (sortBy, order = "asc") => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await axiosInstance.get(
+        `/products?sortBy=${sortBy}&order=${order}`
+      );
+      setData(response.data.products || []);
+    } catch (err) {
+      setError("Failed to sort products");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     data,
     categories,
@@ -76,6 +93,7 @@ const useAxiosProducts = () => {
     fetchAllProductsCategories,
     fetchProductsByCategory,
     searchProducts,
+    sortProducts,
   };
 };
 

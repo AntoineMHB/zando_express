@@ -13,6 +13,7 @@ export const ProductsProvider = ({ children }) => {
     fetchAllProductsCategories,
     fetchProductsByCategory,
     searchProducts,
+    sortProducts,
   } = useAxiosProducts(); // no URL needed now
 
   // Fetch once on app load
@@ -33,6 +34,7 @@ export const ProductsProvider = ({ children }) => {
         fetchAllProductsCategories,
         fetchProductsByCategory,
         searchProducts,
+        sortProducts,
       }}
     >
       {children}
