@@ -8,13 +8,16 @@ import {
   NavigationMenuTrigger,
 } from "./ui/navigation-menu";
 import { SearchField } from "./ui/searchField";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 import { useEffect, useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import { toast } from "react-toastify";
 
 export const TopNavBar = () => {
   const [cartCount, setCartCount] = useState(0);
   const [wishlistCount, setWishlistCount] = useState(0);
+  const { loggedInUser } = useAuth();
   const [products, setProducts] = useState([]);
 
   const updateCartCount = () => {
@@ -46,10 +49,18 @@ export const TopNavBar = () => {
     };
   }, []);
 
+  const handleLogout = () => {
+    localStorage.removeItem("loggedInUser");
+    useNavigate("/login");
+    toast.success("Logged out successfully!");
+
+    // Optionally, you can also trigger a state update or redirect here
+  };
+
   return (
     <div className="flex items-center justify-between px-5 py-5 space-x-4 shadow-sm">
       <p className="text-2xl text-black font-bold">Zando_Express</p>
-      <div className="flex justify-center items-center gap-2">
+      <div className="flex justify-center items-center gap-4">
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
@@ -88,6 +99,24 @@ export const TopNavBar = () => {
             </span>
           )}
         </Link>
+
+        {loggedInUser ? (
+          <button
+            onClick={handleLogout}
+            className="font-semibold hover:font-bold"
+          >
+            Logout
+          </button>
+        ) : (
+          <div>
+            <Link to={"/login"} className="font-semibold hover:font-bold">
+              Sign In
+            </Link>
+            <Link to={"/signup"} className="font-semibold hover:font-bold">
+              Sign Up
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

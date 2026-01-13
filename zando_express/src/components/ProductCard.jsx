@@ -4,6 +4,8 @@ import { useCart } from "../context/CartContext";
 import { addToCart } from "../utils/cartStorage";
 import { Heart } from "lucide-react";
 import { addToWishlist } from "../utils/wishlistStorage";
+import { useAuth } from "../context/AuthContext";
+import { toast } from "react-toastify";
 
 export const ProductCard = ({
   id,
@@ -17,23 +19,37 @@ export const ProductCard = ({
   const productImage = Array.isArray(images) ? images[0] : images;
 
   const handleAddToCart = () => {
+    if (!loggedInUser) {
+      toast.warning("Please log in to add items to your cart.");
+      return;
+    }
     addToCart({
       id,
       title,
       price,
       image: productImage,
     });
+
+    toast.success("Added to cart!");
   };
 
   const [liked, setLiked] = useState(false);
+  const { loggedInUser } = useAuth();
+  console.log("Logged in user in ProductCard:", loggedInUser);
 
   const handleAddToWishlist = () => {
+    if (!loggedInUser) {
+      toast.warning("Please log in to add items to your wishlist.");
+      return;
+    }
     addToWishlist({
       id,
       title,
       price,
       image: productImage,
     });
+
+    toast.success("Added to wishlist!");
 
     setLiked((prev) => !prev);
   };

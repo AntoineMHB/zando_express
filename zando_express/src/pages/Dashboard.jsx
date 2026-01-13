@@ -11,7 +11,10 @@ export const Dashboard = () => {
 
   return (
     <div>
-      <TopNavBar />
+      <div>
+        <TopNavBar />
+      </div>
+
       <p className="flex items-center justify-center text-2xl font-bold">
         All Products
       </p>

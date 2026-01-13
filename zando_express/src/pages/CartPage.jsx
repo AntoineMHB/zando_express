@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getCart, removeFromCart } from "../utils/cartStorage";
 import Container from "../components/ui/container";
 import { TopNavBar } from "../components/TopNavBar";
+import { toast } from "react-toastify";
 
 const CartPage = () => {
   const [cart, setCart] = useState([]);
@@ -12,6 +13,7 @@ const CartPage = () => {
 
   const handleRemove = (id) => {
     removeFromCart(id);
+    toast.success("Item removed from cart!");
     setCart(getCart());
   };
 

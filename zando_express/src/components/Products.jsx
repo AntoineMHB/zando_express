@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useProducts } from "../context/ProductsContext";
 import { ProductCard } from "../components/ProductCard";
 import { Button } from "./ui/button";
+import { useAuth } from "../context/AuthContext";
 
 // Add these constants
 const ITEMS_PER_ROW = 4;
@@ -10,8 +11,9 @@ const INITIAL_ITEMS = ITEMS_PER_ROW * INITIAL_ROWS;
 
 export const Products = ({ showAllProp, onShowAllChange }) => {
   const { products, loading, error } = useProducts();
+  const { loggedInUser } = useAuth();
   const [showAll, setShowAll] = useState(false);
-
+  console.log("Logged in user in Products component:", loggedInUser);
   // Use the prop if passed
   const isShowingAll = showAllProp !== undefined ? showAllProp : showAll;
 
@@ -24,7 +26,6 @@ export const Products = ({ showAllProp, onShowAllChange }) => {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
-
   return (
     <div>
       <div className="px-5 py-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">

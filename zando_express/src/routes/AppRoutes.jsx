@@ -9,8 +9,8 @@ import WishlistPage from "../pages/WishlistPage";
 export const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/" element={<SignupPage />} />
+      <Route path="/" element={<Dashboard />} />
+      <Route path="/signup" element={<SignupPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/wishlist" element={<WishlistPage />} />

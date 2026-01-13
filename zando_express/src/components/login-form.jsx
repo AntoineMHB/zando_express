@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { useAuth } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export function LoginForm({ className, ...props }) {
   const { login, loading, error } = useAuth();
@@ -30,7 +31,8 @@ export function LoginForm({ className, ...props }) {
 
     const result = await login(form);
     if (result) {
-      navigate("/dashboard");
+      toast.success("Login successful!");
+      navigate("/");
     }
   };
   return (
@@ -96,7 +98,7 @@ export function LoginForm({ className, ...props }) {
             </Button>
             <FieldDescription className="text-center">
               Don&apos;t have an account?{" "}
-              <Link to="/" className="underline underline-offset-4">
+              <Link to="/signup" className="underline underline-offset-4">
                 Sign up
               </Link>
             </FieldDescription>

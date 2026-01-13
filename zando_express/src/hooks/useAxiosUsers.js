@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axiosInstance from "../api/axios";
 
 const useAxiosUsers = (url) => {
@@ -27,19 +27,19 @@ const useAxiosUsers = (url) => {
   };
 
   // FAKE  LOGIN
-  const loginUser = async (credentials) => {
-    const saved = JSON.parse(localStorage.getItem("user"));
+  // const loginUser = async (credentials) => {
+  //   const saved = JSON.parse(localStorage.getItem("user"));
 
-    if (
-      saved &&
-      saved.username === credentials.username &&
-      saved.password === credentials.password
-    ) {
-      return { user: saved };
-    }
+  //   if (
+  //     saved &&
+  //     saved.username === credentials.username &&
+  //     saved.password === credentials.password
+  //   ) {
+  //     return { user: saved };
+  //   }
 
-    throw new Error("Invalid credentials");
-  };
+  //   throw new Error("Invalid credentials");
+  // };
 
   // Fetching data
   const fetchAllProducts = async () => {
@@ -55,19 +55,20 @@ const useAxiosUsers = (url) => {
   };
 
   // LOGIN
-  // const loginUser = async (credentials) => {
-  //   try {
-  //     setLoading(true);
-  //     setError(null);
-  //     const response = await axiosInstance.post("/user/login", credentials);
-  //     return response.data;
-  //   } catch (err) {
-  //     setError(err.response?.data?.message || "Invalid email or password");
-  //     return null;
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+  const loginUser = async (credentials) => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await axiosInstance.post("/auth/login", credentials);
+      console.log("Login response:", response.data);
+      return response.data;
+    } catch (err) {
+      setError(err.response?.data?.message || "Invalid email or password");
+      return null;
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // return the state and function
   return {

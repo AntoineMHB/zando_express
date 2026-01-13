@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { useAuth } from "@/context/AuthContext";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export function SignupForm({ className, ...props }) {
   const { signup, loading, error } = useAuth();
@@ -32,7 +33,7 @@ export function SignupForm({ className, ...props }) {
 
     const result = await signup(form);
     if (result) {
-      alert("User registered");
+      toast.success("Registration successful! You can now log in.");
       setForm({
         username: "",
         firstName: "",

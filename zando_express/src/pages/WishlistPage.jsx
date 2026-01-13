@@ -3,6 +3,7 @@ import { getCart, removeFromCart } from "../utils/cartStorage";
 import Container from "../components/ui/container";
 import { TopNavBar } from "../components/TopNavBar";
 import { getWishlist, removeFromWishlist } from "../utils/wishlistStorage";
+import { toast } from "react-toastify";
 
 const WishlistPage = () => {
   const [wishlist, setWishlist] = useState([]);
@@ -13,6 +14,7 @@ const WishlistPage = () => {
 
   const handleRemove = (id) => {
     removeFromWishlist(id);
+    toast.success("Item removed from wishlist!");
     setWishlist(getWishlist());
   };
 

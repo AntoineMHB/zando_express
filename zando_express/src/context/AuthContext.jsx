@@ -6,6 +6,10 @@ const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loggedInUser, setLoggedInUser] = useState(() => {
+    const savedUser = localStorage.getItem("loggedInUser");
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
   const {
     registerUser: axiosRegisterUser,
     loading,
@@ -34,18 +38,20 @@ export const AuthProvider = ({ children }) => {
 
   // LOGIN
   const login = async (credentials) => {
-    const user = await axiosLoginUser(credentials);
-    if (user) {
-      setUser(user);
-      localStorage.setItem("loggeInUser", JSON.stringify(user));
+    const req = await axiosLoginUser(credentials);
+    if (req) {
+      setLoggedInUser(req);
+      localStorage.setItem("loggedInUser", JSON.stringify(req));
     }
-    return user;
+    return req;
   };
 
   // Fecthing all the products
 
   return (
-    <AuthContext.Provider value={{ user, signup, login, loading, error }}>
+    <AuthContext.Provider
+      value={{ user, loggedInUser, signup, login, loading, error }}
+    >
       {children}
     </AuthContext.Provider>
   );
