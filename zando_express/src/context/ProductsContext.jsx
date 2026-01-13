@@ -11,6 +11,7 @@ export const ProductsProvider = ({ children }) => {
     error,
     fetchAllProducts,
     fetchAllProductsCategories,
+    fetchProductsByCategory,
     searchProducts,
   } = useAxiosProducts(); // no URL needed now
 
@@ -18,6 +19,7 @@ export const ProductsProvider = ({ children }) => {
   useEffect(() => {
     fetchAllProducts();
     fetchAllProductsCategories();
+    fetchProductsByCategory();
   }, []);
 
   return (
@@ -29,6 +31,7 @@ export const ProductsProvider = ({ children }) => {
         error,
         fetchAllProducts,
         fetchAllProductsCategories,
+        fetchProductsByCategory,
         searchProducts,
       }}
     >

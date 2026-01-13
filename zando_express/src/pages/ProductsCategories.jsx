@@ -10,37 +10,14 @@ import {
 } from "../components/ui/sidebar";
 import { useProducts } from "../context/ProductsContext";
 
-// Menu items.
-// const items = [
-//   {
-//     title: "Home",
-//     url: "#",
-//     icon: Home,
-//   },
-//   {
-//     title: "Inbox",
-//     url: "#",
-//     icon: Inbox,
-//   },
-//   {
-//     title: "Calendar",
-//     url: "#",
-//     icon: Calendar,
-//   },
-//   {
-//     title: "Search",
-//     url: "#",
-//     icon: Search,
-//   },
-//   {
-//     title: "Settings",
-//     url: "#",
-//     icon: Settings,
-//   },
-// ];
-
 export const ProductsCategories = () => {
-  const { productsCategories, loading, error } = useProducts();
+  const { productsCategories, loading, error, fetchProductsByCategory } =
+    useProducts();
+
+  const handleCategoryClick = (categoryName) => {
+    fetchProductsByCategory(categoryName);
+  };
+
   return (
     <div>
       <Sidebar className="mt-19 h-[calc(100vh-4rem)]">
@@ -52,12 +29,14 @@ export const ProductsCategories = () => {
             <SidebarGroupContent>
               <SidebarMenu>
                 {productsCategories.map((item) => (
-                  <SidebarMenuItem key={item.name}>
+                  <SidebarMenuItem key={item.slug}>
                     <SidebarMenuButton asChild>
-                      <a href={item.url}>
-                        {/* <item.icon /> */}
-                        <span>{item.name}</span>
-                      </a>
+                      <button
+                        onClick={() => handleCategoryClick(item.slug)}
+                        className="w-full text-left"
+                      >
+                        {item.name}
+                      </button>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
